@@ -29,6 +29,6 @@ module Register32bit(
                     Q <= {{16{I[15]}} , I[15:0]};
                 end
             endcase
-        end
+        end    
     end
 endmodule

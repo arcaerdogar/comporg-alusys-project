@@ -19,4 +19,5 @@ always @(posedge Clock) begin
         Q <= Q;
     end
 end
+
 endmodule

@@ -45,63 +45,54 @@ module ArithmeticLogicUnit(
     always @(posedge Clock) begin
         case(FunSel)
             5'b00000: begin
-                ALUOut <= {16'b0, A[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= A[15:0]==16'b0;
                     FlagsOut[1] <= A[15];
                 end
             end
             5'b00001: begin
-                ALUOut <= {16'b0, B[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= B[15:0]==16'b0;
                     FlagsOut[1] <= B[15];
                 end
             end
             5'b10000: begin
-                ALUOut <= A;
                 if(WF) begin
                     FlagsOut[3] <= A == 32'b0;
                     FlagsOut[1] <= A[31];
                 end
             end
             5'b10001: begin
-                ALUOut <= B;
                 if(WF) begin
                     FlagsOut[3] <= B == 32'b0;
                     FlagsOut[1] <= B[31];
                 end
             end
             5'b00010: begin
-                ALUOut <= {16'b0, ~A[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= ~A[15:0]==16'b0;
                     FlagsOut[1] <= ~A[15];
                 end
             end
             5'b00011: begin
-                ALUOut <= {16'b0, ~B[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= ~B[15:0]==16'b0;
                     FlagsOut[1] <= ~B[15];
                 end
             end
             5'b10010: begin
-                ALUOut <= ~A;
                 if(WF) begin
                     FlagsOut[3] <= ~A == 32'b0;
                     FlagsOut[1] <= ~A[31];
                 end
             end
             5'b10011: begin
-                ALUOut <= ~B;
                 if(WF) begin
                     FlagsOut[3] <= ~B == 32'b0;
                     FlagsOut[1] <= ~B[31];
                 end
             end
             5'b00100: begin
-                ALUOut <=  {16'b0, sum16[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= sum16[15:0] == 16'b0;
                     FlagsOut[2] <= sum16[16];
@@ -110,7 +101,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b00101: begin
-                ALUOut <=  {16'b0, sum16carry[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= sum16carry[15:0] == 16'b0;
                     FlagsOut[2] <= sum16carry[16];
@@ -119,7 +109,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b00110: begin
-                ALUOut <=  {16'b0, subs16[15:0]};
                 if(WF) begin
                     FlagsOut[3] <= subs16[15:0] == 16'b0;
                     FlagsOut[2] <= subs16[16];
@@ -128,7 +117,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b10100: begin
-                ALUOut <=  sum32[31:0];
                 if(WF) begin
                     FlagsOut[3] <= sum32[31:0] == 32'b0;
                     FlagsOut[2] <= sum32[32];
@@ -137,7 +125,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b10101: begin
-                ALUOut <=  sum32carry[31:0];
                 if(WF) begin
                     FlagsOut[3] <= sum32carry[31:0] == 32'b0;
                     FlagsOut[2] <= sum32carry[32];
@@ -146,7 +133,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b10110: begin
-                ALUOut <=  subs32[31:0];
                 if(WF) begin
                     FlagsOut[3] <= subs32[31:0] == 32'b0;
                     FlagsOut[2] <= subs32[32];
@@ -155,63 +141,54 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b00111: begin
-                ALUOut <= {16'b0, and16};
                 if(WF) begin 
                     FlagsOut[3] <= and16 == 0;
                     FlagsOut[1] <= and16[15];
                 end
             end
             5'b01000: begin
-                ALUOut <= {16'b0, xor16};
                 if(WF) begin 
                     FlagsOut[3] <= or16 == 0;
                     FlagsOut[1] <= or16[15];
                 end
             end
             5'b01001: begin
-                ALUOut <= {16'b0, xor16};
                 if(WF) begin 
                     FlagsOut[3] <= xor16 == 0;
                     FlagsOut[1] <= xor16[15];
                 end
             end
             5'b01010: begin
-                ALUOut <= {16'b0, nand16};
                 if(WF) begin 
                     FlagsOut[3] <= nand16 == 0;
                     FlagsOut[1] <= nand16;
                 end
             end
             5'b10111: begin
-                ALUOut <= and32;
                 if(WF) begin 
                     FlagsOut[3] <= and32 == 0;
                     FlagsOut[1] <= and32[31];
                 end
             end
             5'b11000: begin
-                ALUOut <= or32;
                 if(WF) begin 
                     FlagsOut[3] <= or32 == 0;
                     FlagsOut[1] <= or32[31];
                 end
             end
             5'b11001: begin
-                ALUOut <= xor32;
                 if(WF) begin 
                     FlagsOut[3] <= xor32 == 0;
                     FlagsOut[1] <= xor32[31];
                 end
             end
             5'b11010: begin
-                ALUOut <= nand32;
                 if(WF) begin 
                     FlagsOut[3] <= nand32 == 0;
                     FlagsOut[1] <= nand32[31];
                 end
             end
             5'b01011: begin
-                ALUOut <= lsl16;
                 if(WF) begin
                     FlagsOut[3] <= lsl16 == 32'b0;
                     FlagsOut[2] <= A[15];
@@ -219,7 +196,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b01100: begin
-                ALUOut <= lsl16;
                 if(WF) begin
                     FlagsOut[3] <= lsr16 == 32'b0;
                     FlagsOut[2] <= A[0];
@@ -227,13 +203,11 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b01101: begin
-                ALUOut <= asr16;
                 if(WF) begin
                     FlagsOut[3] <= asr16 == 32'b0;
                 end
             end
             5'b01110: begin
-                ALUOut <= csl16;
                 if(WF) begin
                     FlagsOut[3] <= csl16 == 32'b0;
                     FlagsOut[2] <= A[15];
@@ -241,7 +215,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b01111: begin
-                ALUOut <= csr16;
                 if(WF) begin
                     FlagsOut[3] <= csr16 == 32'b0;
                     FlagsOut[2] <= A[0];
@@ -249,7 +222,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b11011: begin
-                ALUOut <= lsl32;
                 if(WF) begin
                     FlagsOut[3] <= lsl32 == 32'b0;
                     FlagsOut[2] <= A[31];
@@ -257,7 +229,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b11100: begin
-                ALUOut <= lsr32;
                 if(WF) begin
                     FlagsOut[3] <= lsr32 == 32'b0;
                     FlagsOut[2] <= A[0];
@@ -265,13 +236,11 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b11101: begin
-                ALUOut <= asr32;
                 if(WF) begin
                     FlagsOut[3] <= asr32 == 32'b0;
                 end
             end
             5'b11110: begin
-                ALUOut <= csl32;
                 if(WF) begin
                     FlagsOut[3] <= csl32 == 32'b0;
                     FlagsOut[2] <= A[31];
@@ -279,7 +248,6 @@ module ArithmeticLogicUnit(
                 end
             end
             5'b11111: begin
-                ALUOut <= csr32;
                 if(WF) begin
                     FlagsOut[3] <= csr32 == 32'b0;
                     FlagsOut[2] <= A[0];
@@ -288,4 +256,40 @@ module ArithmeticLogicUnit(
             end
         endcase
     end
-endmodule
+    
+    always @* begin
+        case(FunSel)
+            5'b00000: ALUOut = {16'b0, A[15:0]};
+            5'b00001: ALUOut = {16'b0, B[15:0]};
+            5'b10000: ALUOut = A;
+            5'b10001: ALUOut = B;
+            5'b00010: ALUOut = {16'b0, ~A[15:0]};
+            5'b00011: ALUOut = {16'b0, ~B[15:0]};
+            5'b10010: ALUOut = ~A;
+            5'b10011: ALUOut = ~B;
+            5'b00100: ALUOut =  {16'b0, sum16[15:0]};
+            5'b00101: ALUOut =  {16'b0, sum16carry[15:0]};
+            5'b00110: ALUOut =  {16'b0, subs16[15:0]};
+            5'b10100: ALUOut =  sum32[31:0];
+            5'b10101: ALUOut =  sum32carry[31:0];
+            5'b10110: ALUOut =  subs32[31:0];
+            5'b00111: ALUOut = {16'b0, and16};
+            5'b01000: ALUOut = {16'b0, xor16};
+            5'b01001: ALUOut = {16'b0, xor16};
+            5'b01010: ALUOut = {16'b0, nand16};
+            5'b10111: ALUOut = and32;
+            5'b11000: ALUOut = or32;
+            5'b11001: ALUOut = xor32;
+            5'b11010: ALUOut = nand32;
+            5'b01011: ALUOut = lsl16;
+            5'b01100: ALUOut = lsl16;
+            5'b01101: ALUOut = asr16;
+            5'b01110: ALUOut = csl16;
+            5'b01111: ALUOut = csr16;
+            5'b11011: ALUOut = lsl32;
+            5'b11100: ALUOut = lsr32;
+            5'b11101: ALUOut = asr32;
+            5'b11110: ALUOut = csl32;
+            5'b11111: ALUOut = csr32;
+        endcase
+    end

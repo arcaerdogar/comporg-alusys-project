@@ -1,4 +1,4 @@
-module DataRegister(
+mmodule DataRegister(
     input wire [7:0] I,
     input wire E,
     input wire [1:0] FunSel,
