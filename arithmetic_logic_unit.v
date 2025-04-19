@@ -2,7 +2,7 @@ module ArithmeticLogicUnit(
     input wire [31:0] A, B,
     input wire [4:0] FunSel,
     input wire WF,
-    output reg [31:0] ALUOut,
+    output wire [31:0] ALUOut,
     output reg [3:0] FlagsOut,
     input wire Clock
     );
@@ -36,11 +36,40 @@ module ArithmeticLogicUnit(
     wire [31:0] asr32 = $signed(A) >>> 1;
     wire [31:0] csl32 = {A[30:0], FlagsOut[2]};
     wire [31:0] csr32 = {FlagsOut[2], A[31:1]};
-
-    initial begin
-        ALUOut = 0;
-        FlagsOut = 0;
-    end
+    
+    assign ALUOut = (FunSel == 5'b00000) ? {16'b0, A[15:0]} :
+                (FunSel == 5'b00001) ? {16'b0, B[15:0]} :
+                (FunSel == 5'b10000) ? A :
+                (FunSel == 5'b10001) ? B :
+                (FunSel == 5'b00010) ? {16'b0, ~A[15:0]} :
+                (FunSel == 5'b00011) ? {16'b0, ~B[15:0]} :
+                (FunSel == 5'b10010) ? ~A :
+                (FunSel == 5'b10011) ? ~B :
+                (FunSel == 5'b00100) ? {16'b0, sum16[15:0]} :
+                (FunSel == 5'b00101) ? {16'b0, sum16carry[15:0]} :
+                (FunSel == 5'b00110) ? {16'b0, subs16[15:0]} :
+                (FunSel == 5'b10100) ? sum32 :
+                (FunSel == 5'b10101) ? sum32carry :
+                (FunSel == 5'b10110) ? subs32 :
+                (FunSel == 5'b00111) ? {16'b0, and16} :
+                (FunSel == 5'b01000) ? {16'b0, xor16} :
+                (FunSel == 5'b01001) ? {16'b0, xor16} :
+                (FunSel == 5'b01010) ? {16'b0, nand16} :
+                (FunSel == 5'b10111) ? and32 :
+                (FunSel == 5'b11000) ? or32 :
+                (FunSel == 5'b11001) ? xor32 :
+                (FunSel == 5'b11010) ? nand32 :
+                (FunSel == 5'b01011) ? lsl16 :
+                (FunSel == 5'b01100) ? lsl16 :
+                (FunSel == 5'b01101) ? asr16 :
+                (FunSel == 5'b01110) ? csl16 :
+                (FunSel == 5'b01111) ? csr16 :
+                (FunSel == 5'b11011) ? lsl32 :
+                (FunSel == 5'b11100) ? lsr32 :
+                (FunSel == 5'b11101) ? asr32 :
+                (FunSel == 5'b11110) ? csl32 :
+                (FunSel == 5'b11111) ? csr32 :
+                32'b0;
     
     always @(posedge Clock) begin
         case(FunSel)
@@ -256,40 +285,4 @@ module ArithmeticLogicUnit(
             end
         endcase
     end
-    
-    always @* begin
-        case(FunSel)
-            5'b00000: ALUOut = {16'b0, A[15:0]};
-            5'b00001: ALUOut = {16'b0, B[15:0]};
-            5'b10000: ALUOut = A;
-            5'b10001: ALUOut = B;
-            5'b00010: ALUOut = {16'b0, ~A[15:0]};
-            5'b00011: ALUOut = {16'b0, ~B[15:0]};
-            5'b10010: ALUOut = ~A;
-            5'b10011: ALUOut = ~B;
-            5'b00100: ALUOut =  {16'b0, sum16[15:0]};
-            5'b00101: ALUOut =  {16'b0, sum16carry[15:0]};
-            5'b00110: ALUOut =  {16'b0, subs16[15:0]};
-            5'b10100: ALUOut =  sum32[31:0];
-            5'b10101: ALUOut =  sum32carry[31:0];
-            5'b10110: ALUOut =  subs32[31:0];
-            5'b00111: ALUOut = {16'b0, and16};
-            5'b01000: ALUOut = {16'b0, xor16};
-            5'b01001: ALUOut = {16'b0, xor16};
-            5'b01010: ALUOut = {16'b0, nand16};
-            5'b10111: ALUOut = and32;
-            5'b11000: ALUOut = or32;
-            5'b11001: ALUOut = xor32;
-            5'b11010: ALUOut = nand32;
-            5'b01011: ALUOut = lsl16;
-            5'b01100: ALUOut = lsl16;
-            5'b01101: ALUOut = asr16;
-            5'b01110: ALUOut = csl16;
-            5'b01111: ALUOut = csr16;
-            5'b11011: ALUOut = lsl32;
-            5'b11100: ALUOut = lsr32;
-            5'b11101: ALUOut = asr32;
-            5'b11110: ALUOut = csl32;
-            5'b11111: ALUOut = csr32;
-        endcase
-    end
+endmodule
